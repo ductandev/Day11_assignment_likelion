@@ -77,17 +77,7 @@ public class Main {
     }
 
     public static void addStudent(School school) {
-        getAllClassRooms(school);
-
-        System.out.print("Nhập vào lớp học ID: ");
-        String classId = userInputString();
-        // Tìm lớp học ID, nếu không có thì end
-        ClassRoom classRoomCurrent = school.findClassRoomId(classId);
-        // Nếu không tìm thấy lớp học ID thì trả thông báo và return
-        if (classRoomCurrent == null){
-            return;
-        }
-        school.showAllStudentsByClassId(classId);
+        String classId = showAllStrudentInCourse(school);
 
         System.out.print("Nhập vào Họ tên học viên: ");
         String name = userInputString();
@@ -103,7 +93,26 @@ public class Main {
         school.addStudent(new Student(classId, name, birthDay, id, age));
 
         school.showAllStudentsByClassId(classId);
+    }
 
+    public static String showAllStrudentInCourse(School school) {
+        getAllClassRooms(school);
+
+        System.out.print("Nhập vào lớp học ID: ");
+        String classId = userInputString();
+        // Tìm lớp học ID, nếu không có thì end
+        ClassRoom classRoomCurrent = school.findClassRoomId(classId);
+        if (classRoomCurrent == null){
+            return null;
+        }
+        school.showAllStudentsByClassId(classId);
+        return classId;
+    }
+
+    public static void showStudentDetailInCourse(School school){
+        String classId = showAllStrudentInCourse(school);
+        System.out.print("Nhập vào CCCD học viên: ");
+        String id = userInputString();
 
     }
 
@@ -142,10 +151,10 @@ public class Main {
 //                    editStudent(school);
                     break;
                 case 4:
-//                    deleteBook(school);
+                    showAllStrudentInCourse(school);
                     break;
                 case 5:
-//                    getAllPerson(school);
+                    showStudentDetailInCourse(school);
                     break;
                 case 6:
 //                    addPerson(school);

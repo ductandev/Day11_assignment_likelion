@@ -26,6 +26,7 @@ public class Student extends People {
         super(name, birthDay, id);
         this.age = age;
         this.status = true;
+        this.codeStudent = classId + "_" + id;
         this.classId = classId;
     }
 

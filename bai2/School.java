@@ -82,11 +82,11 @@ public class School implements ClassRoomServices, StudentServies, TeacherService
         int stt = 1;
         System.out.println("==========================================================================================");
         System.out.println("|                        DANH SÁCH HỌC SINH CỦA LỚP                                      |");
-        System.out.printf("| %-3s | %-10s | %-20s | %-10s | %-4s | %-6s | %-12s | %-10s | %-14s | %-10s |\n", "Stt", "CCCD", "Họ tên", "Sinh nhật", "Tuổi", "Lớp ID", "Ngày bắt đầu", "Trạng thái", "Lý do nghỉ học", "Mã code lớp");
+        System.out.printf("| %-3s | %-10s | %-20s | %-10s | %-4s | %-6s | %-12s | %-10s | %-14s | %-12s |\n", "Stt", "CCCD", "Họ tên", "Sinh nhật", "Tuổi", "Lớp ID", "Ngày bắt đầu", "Trạng thái", "Lý do nghỉ học", "Mã code lớp");
         for (ClassRoom classRoomCurrent : classRooms) {
             if (classRoomCurrent.getClassId().equals(classId)) {
                 for (Day11.assignment.bai2.model.Student student :  classRoomCurrent.getStudents()) {
-                    System.out.printf("| %-3s | %-10s | %-20s | %-10s | %-4s | %-6s | %-12s | %-10s | %-14s | %-10s |\n",
+                    System.out.printf("| %-3s | %-10s | %-20s | %-10s | %-4s | %-6s | %-12s | %-10s | %-14s | %-12s |\n",
                             stt, student.getId(), student.getName(), student.getBirthDay(), student.getAge(), student.getClassId(), student.getDayStart(), student.isStatus(), student.getReasonStop(), student.getCodeStudent());
                     stt++;
                 }
@@ -98,13 +98,6 @@ public class School implements ClassRoomServices, StudentServies, TeacherService
 
     @Override
     public void addStudent(Student student) {
-//        for (ClassRoom classRoom : classRooms) {
-//            if (classRoom.getClassId().equals(student.getClassId())) {
-//                // Lấy ra arraylist trong đối tượng Student và thêm sinh viên mới vào lớp
-//                classRoom.getStudents().add(student);
-//            }
-//        }
-
         // Tìm lớp hiện tại
         ClassRoom classRoomCurrent = findClassRoomId(student.getClassId());
 
