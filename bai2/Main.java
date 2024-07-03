@@ -43,6 +43,7 @@ public class Main {
     }
 
     public static void showDisplayFunction() {
+        System.out.println(" ");
         System.out.println("=============================================");
         System.out.println("+          ĐỀ 1: QUẢN LÝ THƯ VIỆN           +");
         System.out.println("=============================================");
@@ -80,7 +81,12 @@ public class Main {
 
         System.out.print("Nhập vào lớp học ID: ");
         String classId = userInputString();
-
+        // Tìm lớp học ID, nếu không có thì end
+        ClassRoom classRoomCurrent = school.findClassRoomId(classId);
+        // Nếu không tìm thấy lớp học ID thì trả thông báo và return
+        if (classRoomCurrent == null){
+            return;
+        }
         school.showAllStudentsByClassId(classId);
 
         System.out.print("Nhập vào Họ tên học viên: ");

@@ -80,8 +80,8 @@ public class School implements ClassRoomServices, StudentServies, TeacherService
     @Override
     public void showAllStudentsByClassId(String classId) {
         int stt = 1;
-        System.out.println("=================================================================================");
-        System.out.println("|                        DANH SÁCH HỌC SINH CỦA LỚP                             |");
+        System.out.println("==========================================================================================");
+        System.out.println("|                        DANH SÁCH HỌC SINH CỦA LỚP                                      |");
         System.out.printf("| %-3s | %-10s | %-20s | %-10s | %-4s | %-6s | %-12s | %-10s | %-14s | %-10s |\n", "Stt", "CCCD", "Họ tên", "Sinh nhật", "Tuổi", "Lớp ID", "Ngày bắt đầu", "Trạng thái", "Lý do nghỉ học", "Mã code lớp");
         for (ClassRoom classRoomCurrent : classRooms) {
             if (classRoomCurrent.getClassId().equals(classId)) {
@@ -93,17 +93,33 @@ public class School implements ClassRoomServices, StudentServies, TeacherService
             }
 
         }
-        System.out.println("=================================================================================");
+        System.out.println("============================================================================================");
     }
 
     @Override
     public void addStudent(Student student) {
-        for (ClassRoom classRoom : classRooms) {
-            if (classRoom.getClassId().equals(student.getClassId())) {
-                // Lấy ra arraylist trong đối tượng Student và thêm sinh viên mới vào lớp
-                classRoom.getStudents().add(student);
-            }
+//        for (ClassRoom classRoom : classRooms) {
+//            if (classRoom.getClassId().equals(student.getClassId())) {
+//                // Lấy ra arraylist trong đối tượng Student và thêm sinh viên mới vào lớp
+//                classRoom.getStudents().add(student);
+//            }
+//        }
+
+        // Tìm lớp hiện tại
+        ClassRoom classRoomCurrent = findClassRoomId(student.getClassId());
+
+         if (classRoomCurrent.getStudents().size() >= 10) {
+            System.err.println("Lớp học không được vượt quá 10 người !!!");
+            return;
+        } else if (student.getAge() > 20 || student.getAge() < 18) {
+            System.err.println("Học viên phải từ 18-20 tuổi mới được đăng ký học !!!");
+            return;
+        } else {
+            classRoomCurrent.getStudents().add(student);
+            System.out.println("Thêm học sinh vào lớp thành công !!!");
         }
+
+
     }
 
     @Override
@@ -155,14 +171,15 @@ public class School implements ClassRoomServices, StudentServies, TeacherService
     }
 
 
-//    public Persons findStudentById(String personID) {
-//        for (Persons person : persons) {
-//            if (person.getPersonId().equals(personID)) {
-//                return person;
-//            }
-//        }
-//        return null;
-//    }
+    public ClassRoom findClassRoomId(String classId) {
+        for (ClassRoom classRoom : classRooms) {
+            if (classRoom.getClassId().equals(classId)) {
+                return classRoom;
+            }
+        }
+        System.err.println("Không tìm thấy lớp học ID !!!!");
+        return null;
+    }
 //
 //    public Books findBookById(String bookID) {
 //        for (Books book : books) {
